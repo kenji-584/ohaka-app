@@ -96,7 +96,7 @@ export default function PricingPage({ onBack }) {
   const yearlyPrice = Math.floor(monthly * 12 * 0.8)
   const displayPrice = yearly ? Math.floor(yearlyPrice / 12) : monthly
 
-  const STRIPE_URL = 'https://buy.stripe.com/test_28E3vc0N5016LY28oa3u00'
+  const STRIPE_URL = 'https://buy.stripe.com/test_28E3cvc0N5016LY28oa3u00'
 
   return (
     <>
