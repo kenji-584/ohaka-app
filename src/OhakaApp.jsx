@@ -45,7 +45,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .hdr-ornament{display:flex;align-items:center;justify-content:center;gap:14px;color:var(--gold)}
 .hdr-ornament span{width:40px;height:1px;background:var(--gold3);opacity:.5}
 .nav-wrap{position:sticky;top:0;z-index:50;background:rgba(250,247,242,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);margin:0 -28px 40px;padding:0 28px}
-.nav{display:flex;max-width:820px;margin:0 auto}
+.nav{display:flex;max-width:820px;margin:0 auto;justify-content:center}
 .nav button{flex:1;padding:15px 6px;background:none;border:none;color:var(--ink3);font-family:var(--sans);font-size:11px;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:color .25s;position:relative}
 .nav button::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:0;height:1px;background:var(--gold);transition:width .3s}
 .nav button:hover{color:var(--ink2)}
