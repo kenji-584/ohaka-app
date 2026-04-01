@@ -48,7 +48,7 @@ export default function LandingPage({ onEnterApp }) {
           「お父さん、うちのお墓<br/><em>どこだっけ？</em>」<br/>
           そう聞く前に、今日登録しておく。
         </h1>
-        <p className="lp-sub">親が高齢でお墓の場所を忘れてしまったとき。<br/>親が突然他界して、何もわからなかったとき。<br/>そんな日が来る前に、今日準備しておく。</p>
+        <p className="lp-sub">お墓の場所・写真・法事の日程・もしもの時の準備——<br/>大切な情報を家族で守るアプリ</p>
         <div className="lp-cta-wrap">
           <button className="lp-btn-primary" onClick={onEnterApp}>無料で始める</button>
           <button className="lp-btn-ghost" onClick={()=>document.getElementById('features')?.scrollIntoView({behavior:'smooth'})}>機能を見る</button>
