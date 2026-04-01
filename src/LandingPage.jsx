@@ -68,7 +68,7 @@ export default function LandingPage({ onEnterApp }) {
         </div>
         <div className="lp-story-text fade-up">
           <p>葬儀の手順、お寺の連絡先、保険の情報、銀行口座——<em>「もしもの時」に必要なものは山ほどある。</em>でも、多くの家族がそれを何も準備していない。</p>
-          <p>だから作りました。家族の記録を、次の世代へ確実につなぐためのアプリを。</p>
+          <p>だから作りました。家族の記録を、次の世代へ確実につなぐために。</p>
         </div>
       </section>
       <div className="lp-ornament"><span/>✦<span/></div>
