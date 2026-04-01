@@ -154,14 +154,14 @@ export default function PricingPage({ onBack }) {
                 ))}
               </div>
             ))}
-            <button className="plan-btn primary" onClick={() => window.open('https://buy.stripe.com/test_28E3cvc0N5016LY28oa3u00', '_blank')}>プランを始める</button>
+            <button className="plan-btn primary" disabled style={{opacity:0.5,cursor:'not-allowed'}}>準備中 — 近日公開</button>
           </div>
         </div>
 
         {/* 近日公開 */}
         <div className="coming-box">
           <div className="coming-inner">
-            <div className="coming-title">近日公開予定の機能</div>
+            <div className="coming-title">検討中の機能</div>
             <div className="coming-grid">
               {COMING.map(item => (
                 <div key={item} className="coming-item">
