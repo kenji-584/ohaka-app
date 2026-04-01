@@ -23,25 +23,25 @@ const load = () => { try { const d = JSON.parse(localStorage.getItem(SK)); retur
 const persist = d => { try { localStorage.setItem(SK, JSON.stringify(d)) } catch(e) { if (e.name === 'QuotaExceededError' || e.code === 22) { alert('保存容量が上限。写真を減らしてください') } } }
 
 const HOJI = [
-  { key: 's7',   label: 'åä¸æ¥',      days: 7 },
-  { key: 's49',  label: 'ååä¹æ¥',    days: 49,  note: 'ç´éª¨ã¯ãã®æ¥ãå¤ã' },
-  { key: 's100', label: 'ç¾ãæ¥',      days: 100 },
-  { key: 'y1',   label: 'ä¸å¨å¿',      years: 1,  note: 'æº1å¹´ãè¦ªæãæãã¦' },
-  { key: 'y3',   label: 'ä¸åå¿',      years: 2 },
-  { key: 'y7',   label: 'ä¸åå¿',      years: 6 },
-  { key: 'y13',  label: 'åä¸åå¿',    years: 12 },
-  { key: 'y17',  label: 'åä¸åå¿',    years: 16 },
-  { key: 'y23',  label: 'äºåä¸åå¿',  years: 22 },
-  { key: 'y33',  label: 'ä¸åä¸åå¿',  years: 32, note: 'å¼ãä¸ã' },
+  { key: 's7',   label: '初七日',      days: 7 },
+  { key: 's49',  label: '四十九日',    days: 49,  note: '納骨はこの日が多い' },
+  { key: 's100', label: '百か日',      days: 100 },
+  { key: 'y1',   label: '一周忌',      years: 1,  note: '満1年、親族を招いて' },
+  { key: 'y3',   label: '三回忌',      years: 2 },
+  { key: 'y7',   label: '七回忌',      years: 6 },
+  { key: 'y13',  label: '十三回忌',    years: 12 },
+  { key: 'y17',  label: '十七回忌',    years: 16 },
+  { key: 'y23',  label: '二十三回忌',  years: 22 },
+  { key: 'y33',  label: '三十三回忌',  years: 32, note: '弔い上げ' },
 ]
 
 const CHECKS = {
-  'è¬åå': ['æ­»äº¡è¨ºæ­æ¸ã®åãåã','æ­»äº¡å±ã®æåºï¼7æ¥ä»¥åï¼','è¬åç¤¾ã¸ã®é£çµ¡','è©æå¯ºã¸ã®é£çµ¡','éºå½±åçã®é¸å®','åªä¸»ã®æ±ºå®','æ£ºã»ç¥­å£ãã©ã³ã®æ±ºå®','è¦ªæã»åäººã¸ã®è¨å ±é£çµ¡'],
-  'è¬åå½æ¥': ['éå¤ã®æºå','åå¥å¼','ç«è¬è¨±å¯è¨¼ã®ç¢ºèª','ç«è¬ã»åéª¨','åä¸æ¥æ³è¦','é¦å¸è¿ãã®æé'],
-  'è¬åå¾': ['ååä¹æ¥æ³è¦ã®äºç´','ç´éª¨ã®æé','ç¸ç¶ã»éºç£æç¶ã','å¹´éã»ä¿éºã®æç¶ã','éºåæ´ç','ãå¢ã®ç®¡çèç»é²'],
+  '葬儀前': ['死亡診断書の受け取り','死亡届の提出（7日以内）','葬儀社への連絡','菩提寺への連絡','遺影写真の選定','喪主の決定','棺・祭壇プランの決定','親族・友人への訃報連絡'],
+  '葬儀当日': ['通夜の準備','告別式','火葬許可証の確認','火葬・収骨','初七日法要','香典返しの手配'],
+  '葬儀後': ['四十九日法要の予約','納骨の手配','相続・遺産手続き','年金・保険の手続き','遺品整理','お墓の管理者登録'],
 }
 
-const SYS = 'ããªãã¯æ¥æ¬ã®ãå¢ã»è¬åã»æ³äºã®å°éã¢ããã¤ã¶ã¼ã§ããæ¸©ããä¸å¯§ãªæ¥æ¬èªã§ãå·ä½çã«ãç­ããã ãããç»é²æ¸ã¿ã®ãå¢æå ±ãåèã«ãã¦ãã ãããå°éå®¶ï¼å¼è­·å£«ã»ç¨çå£«ã»ä½è·ï¼ãå¿è¦ãªå ´é¢ã§ã¯ãã®æ¨ããä¼ããã ããã'
+const SYS = 'あなたは日本のお墓・葬儀・法事の専門アドバイザーです。温かく丁寧な日本語で、具体的にお答えください。登録済みのお墓情報も参考にしてください。専門家（弁護士・税理士・住職）が必要な場面ではその旨もお伝えください。'
 
 const css = `
 @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap');
@@ -148,7 +148,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .c-item{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid rgba(30,26,22,0.04);cursor:pointer}
 .c-box{width:16px;height:16px;flex-shrink:0;border:1px solid var(--ink3);border-radius:1px;display:flex;align-items:center;justify-content:center;transition:all .2s}
 .c-box.done{background:var(--gold);border-color:var(--gold)}
-.c-box.done::after{content:'â';font-size:10px;color:white}
+.c-box.done::after{content:'✓';font-size:10px;color:white}
 .c-text{font-size:13px;color:var(--ink2);letter-spacing:0.03em;line-height:1.5;transition:color .2s}
 .c-item.done .c-text{text-decoration:line-through;color:var(--ink3)}
 .chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 340px);min-height:360px}
@@ -193,7 +193,7 @@ export default function OhakaApp({ onOpenPricing }) {
   const [form, setForm] = useState(null)
   const [editId, setEditId] = useState(null)
   const [checks, setChecks] = useState({})
-  const [msgs, setMsgs] = useState([{ role: 'ai', content: 'ããã«ã¡ã¯ã\nãå¢ã»è¬åã»æ³äºã«ã¤ãã¦ã®ãç¸è«ãæ¿ãã¾ãã\nã©ãããæ°è»½ã«ãç³ãä»ããã ããã' }])
+  const [msgs, setMsgs] = useState([{ role: 'ai', content: 'こんにちは。\nお墓・葬儀・法事についてのご相談を承ります。\nどうぞお気軽にお申し付けください。' }])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [lightbox, setLightbox] = useState(null)
@@ -245,7 +245,7 @@ export default function OhakaApp({ onOpenPricing }) {
   const sendMsg = async text => {
     const m = text || input.trim(); if (!m || loading) return
     setInput('')
-    const ctx = data.graves.length ? '\nãç»é²æ¸ã¿ãå¢ã\n' + data.graves.map(g => `ã»${g.name}ï¼${g.temple}ã${g.address}ã${g.sect}ï¼`).join('\n') : ''
+    const ctx = data.graves.length ? '\n【登録済みお墓】\n' + data.graves.map(g => `・${g.name}（${g.temple}、${g.address}、${g.sect}）`).join('\n') : ''
     const next = [...msgs, { role:'user', content:m }]
     setMsgs(next); setLoading(true)
     try {
@@ -258,19 +258,19 @@ export default function OhakaApp({ onOpenPricing }) {
         })
       })
       const j = await res.json()
-      setMsgs([...next, { role:'ai', content:j.content?.map(c=>c.text||'').join('')||'ã¨ã©ã¼ãçºçãã¾ããã' }])
-    } catch { setMsgs([...next, { role:'ai', content:'éä¿¡ã¨ã©ã¼ãçºçãã¾ããã' }]) }
+      setMsgs([...next, { role:'ai', content:j.content?.map(c=>c.text||'').join('')||'エラーが発生しました。' }])
+    } catch { setMsgs([...next, { role:'ai', content:'通信エラーが発生しました。' }]) }
     setLoading(false)
   }
 
-  const qqList = ['ååä¹æ¥ã®æºå','è¬åè²»ç¨ã®ç¸å ´','æåã®è²»ç¨','å¢ãã¾ãã¨ã¯','é¦å¸è¿ãã®ããã¼','éºç£ç¸ç¶ã®æµã']
+  const qqList = ['四十九日の準備','葬儀費用の相場','戒名の費用','墓じまいとは','香典返しのマナー','遺産相続の流れ']
 
   return (
     <>
       <style>{css}</style>
       {lightbox && (
         <div className="lightbox" onClick={() => setLightbox(null)}>
-          <button className="lightbox-close" onClick={() => setLightbox(null)}>â éãã</button>
+          <button className="lightbox-close" onClick={() => setLightbox(null)}>✕ 閉じる</button>
           <img src={lightbox} alt="" onClick={e => e.stopPropagation()} />
         </div>
       )}
@@ -285,91 +285,91 @@ export default function OhakaApp({ onOpenPricing }) {
               return <line key={a} x1={26+r1*Math.cos(rad)} y1={26+r1*Math.sin(rad)} x2={26+r2*Math.cos(rad)} y2={26+r2*Math.sin(rad)} stroke="#b08840" strokeWidth="0.7"/>
             })}
           </svg>
-          <h1>å®¶ã®ãå¢å¸³</h1>
+          <h1>家のお墓帳</h1>
           <div className="hdr-sub">Ancestral Records & Memorial Guide</div>
-          <div className="hdr-ornament"><span />â¦<span /></div>
+          <div className="hdr-ornament"><span />✦<span /></div>
         </div>
 
         <div className="nav-wrap">
           <nav className="nav">
-            {[['graves','â© ãå¢'],['memories','ð· æãåº'],['hoji','â¯ æ³äº'],['kanji','ð å¹¹äº'],['family','ð¨âð©âð§ å®¶æ'],['checklist','â¡ æ®µåã'],['chat','â ç¸è«'],['mosimo','ð ããã'],['share','â å¼ç¶ã']].map(([k,l]) => (
+            {[['graves','⛩ お墓'],['memories','📷 思い出'],['hoji','◯ 法事'],['kanji','📋 幹事'],['family','👨‍👩‍👧 家族'],['checklist','□ 段取り'],['chat','◇ 相談'],['mosimo','📓 もしも'],['share','↗ 引継ぎ']].map(([k,l]) => (
               <button key={k} className={tab===k?'active':''} onClick={() => setTab(k)}>{l}</button>
             ))}
-            <button className="pro-btn" onClick={onOpenPricing}>â¦ Pro</button>
+            <button className="pro-btn" onClick={onOpenPricing}>✦ Pro</button>
           </nav>
         </div>
 
-        {/* ãå¢ãªã¹ã */}
+        {/* お墓リスト */}
         {tab==='graves' && !form && (<>
-          <div className="sec-label">Grave Records â {data.graves.length} ä»¶</div>
+          <div className="sec-label">Grave Records — {data.graves.length} 件</div>
           <div className="card">
             {data.graves.length===0 ? (
-              <div className="empty-state"><div className="empty-icon">â©</div><div className="empty-text">ã¾ã ç»é²ãããã¾ãã<br/>ä¸ã®ãã¿ã³ããè¿½å ãã¦ãã ãã</div></div>
+              <div className="empty-state"><div className="empty-icon">⛩</div><div className="empty-text">まだ登録がありません<br/>下のボタンから追加してください</div></div>
             ) : data.graves.map(g => (
               <div className="grave-row" key={g.id} onClick={() => openEdit(g)}>
-                <div className="grave-thumb">{g.photos?.[0] ? <img src={g.photos[0]} alt=""/> : <span className="grave-icon">ðª¦</span>}</div>
+                <div className="grave-thumb">{g.photos?.[0] ? <img src={g.photos[0]} alt=""/> : <span className="grave-icon">🪦</span>}</div>
                 <div className="grave-body">
                   <div className="grave-name">{g.name}</div>
                   <div className="grave-meta">{g.temple && <div>{g.temple}</div>}{g.address && <div>{g.address}</div>}</div>
-                  <div className="tags">{g.sect && <span className="tag">{g.sect}</span>}{g.plot && <span className="tag">åºç» {g.plot}</span>}{g.photos?.length>0 && <span className="tag">åç {g.photos.length}æ</span>}</div>
+                  <div className="tags">{g.sect && <span className="tag">{g.sect}</span>}{g.plot && <span className="tag">区画 {g.plot}</span>}{g.photos?.length>0 && <span className="tag">写真 {g.photos.length}枚</span>}</div>
                 </div>
-                <div className="grave-chevron">âº</div>
+                <div className="grave-chevron">›</div>
               </div>
             ))}
           </div>
-          <div style={{textAlign:'right'}}><button className="btn btn-solid" onClick={openNew}>ï¼ æ°è¦ç»é²</button></div>
+          <div style={{textAlign:'right'}}><button className="btn btn-solid" onClick={openNew}>＋ 新規登録</button></div>
         </>)}
 
-        {/* ãå¢ãã©ã¼ã  */}
+        {/* お墓フォーム */}
         {tab==='graves' && form && (<>
           <div className="sec-label">{editId?'Edit Record':'New Record'}</div>
           <div className="card">
-            <div className="fg"><label>ãå¢ã®åå</label><input value={form.name||''} onChange={e=>sf('name',e.target.value)} placeholder="å±±ç°å®¶ä¹å¢"/></div>
+            <div className="fg"><label>お墓の名前</label><input value={form.name||''} onChange={e=>sf('name',e.target.value)} placeholder="山田家之墓"/></div>
             <div className="row2">
-              <div className="fg"><label>å¯ºã»éåå</label><input value={form.temple||''} onChange={e=>sf('temple',e.target.value)} placeholder="ââå¯º"/></div>
-              <div className="fg"><label>å®æ´¾</label><input value={form.sect||''} onChange={e=>sf('sect',e.target.value)} placeholder="æµåå®"/></div>
+              <div className="fg"><label>寺・霊園名</label><input value={form.temple||''} onChange={e=>sf('temple',e.target.value)} placeholder="○○寺"/></div>
+              <div className="fg"><label>宗派</label><input value={form.sect||''} onChange={e=>sf('sect',e.target.value)} placeholder="浄土宗"/></div>
             </div>
-            <div className="fg"><label>ä½æï¼å°å³è¡¨ç¤ºã«ä½¿ç¨ï¼</label><input value={form.address||''} onChange={e=>sf('address',e.target.value)} placeholder="æ±äº¬é½ââåºââ1-2-3"/></div>
+            <div className="fg"><label>住所（地図表示に使用）</label><input value={form.address||''} onChange={e=>sf('address',e.target.value)} placeholder="東京都○○区○○1-2-3"/></div>
             {form.address && (
               <div className="map-wrap">
                 <iframe className="map-frame" src={mapUrl(form.address)} title="map" loading="lazy" allowFullScreen/>
-                <div style={{marginTop:10}}><button className="btn btn-ghost" style={{fontSize:11,padding:'8px 16px'}} onClick={() => openMap(form.address)}>Google Maps ã§éã â</button></div>
+                <div style={{marginTop:10}}><button className="btn btn-ghost" style={{fontSize:11,padding:'8px 16px'}} onClick={() => openMap(form.address)}>Google Maps で開く →</button></div>
               </div>
             )}
             <div className="row2" style={{marginTop:22}}>
-              <div className="fg"><label>åºç»ã»çªå·</label><input value={form.plot||''} onChange={e=>sf('plot',e.target.value)} placeholder="A-12"/></div>
-              <div className="fg"><label>é»è©±çªå·</label><input value={form.phone||''} onChange={e=>sf('phone',e.target.value)} placeholder="03-XXXX-XXXX"/></div>
+              <div className="fg"><label>区画・番号</label><input value={form.plot||''} onChange={e=>sf('plot',e.target.value)} placeholder="A-12"/></div>
+              <div className="fg"><label>電話番号</label><input value={form.phone||''} onChange={e=>sf('phone',e.target.value)} placeholder="03-XXXX-XXXX"/></div>
             </div>
-            <div className="fg"><label>ã¢ã¯ã»ã¹ã¡ã¢</label><textarea value={form.access||''} onChange={e=>sf('access',e.target.value)} placeholder="ââé§ããå¾æ­©10åãæ­£éå¥ãå³å´â¦"/></div>
-            <div className="fg"><label>ç®¡çè²»ã»åè</label><textarea value={form.notes||''} onChange={e=>sf('notes',e.target.value)} placeholder="ç®¡çè²» å¹´5,000åï¼æ¯å¹´3æï¼â¦"/></div>
+            <div className="fg"><label>アクセスメモ</label><textarea value={form.access||''} onChange={e=>sf('access',e.target.value)} placeholder="○○駅より徒歩10分、正門入り右側…"/></div>
+            <div className="fg"><label>管理費・備考</label><textarea value={form.notes||''} onChange={e=>sf('notes',e.target.value)} placeholder="管理費 年5,000円（毎年3月）…"/></div>
             <div className="fg">
-              <label>åç</label>
+              <label>写真</label>
               <div className="photo-grid">
                 {(form.photos||[]).map((p,i) => (
-                  <div className="photo-slot" key={i}><img src={p} alt="" onClick={() => setLightbox(p)}/><button className="photo-del" onClick={e=>{e.stopPropagation();delPhoto(i)}}>â</button></div>
+                  <div className="photo-slot" key={i}><img src={p} alt="" onClick={() => setLightbox(p)}/><button className="photo-del" onClick={e=>{e.stopPropagation();delPhoto(i)}}>✕</button></div>
                 ))}
-                <div className="photo-add" onClick={() => photoRef.current?.click()}><span style={{fontSize:20,opacity:.4}}>ï¼</span><span>åçãè¿½å </span></div>
+                <div className="photo-add" onClick={() => photoRef.current?.click()}><span style={{fontSize:20,opacity:.4}}>＋</span><span>写真を追加</span></div>
               </div>
               <input ref={photoRef} type="file" accept="image/*" style={{display:'none'}} onChange={addPhoto}/>
             </div>
             <div className="btns">
-              {editId && <button className="btn btn-danger" onClick={() => del(editId)}>åé¤</button>}
-              <button className="btn btn-ghost" onClick={() => setForm(null)}>ã­ã£ã³ã»ã«</button>
-              <button className="btn btn-solid" onClick={save}>ä¿å­</button>
+              {editId && <button className="btn btn-danger" onClick={() => del(editId)}>削除</button>}
+              <button className="btn btn-ghost" onClick={() => setForm(null)}>キャンセル</button>
+              <button className="btn btn-solid" onClick={save}>保存</button>
             </div>
           </div>
         </>)}
 
-        {/* æ³äº */}
+        {/* 法事 */}
         {tab==='hoji' && (<>
           <div className="sec-label">Memorial Schedule</div>
           <div className="card">
-            <div className="fg" style={{marginBottom:0}}><label>å½æ¥</label><input type="date" value={deathDate} onChange={e=>setDeathDate(e.target.value)}/></div>
+            <div className="fg" style={{marginBottom:0}}><label>命日</label><input type="date" value={deathDate} onChange={e=>setDeathDate(e.target.value)}/></div>
           </div>
           {nextHoji && (
             <div className="next-card">
               <div>
-                <div className="next-label-sm">æ¬¡ã®æ³äº</div>
+                <div className="next-label-sm">次の法事</div>
                 <div className="next-name-lg">{nextHoji.label}</div>
                 <div className="next-date-sm">{nextHoji.date.toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric'})}</div>
               </div>
@@ -381,7 +381,7 @@ export default function OhakaApp({ onOpenPricing }) {
           )}
           <div className="card">
             {hojiDates.length===0 ? (
-              <div className="empty-state"><div className="empty-icon" style={{fontSize:22}}>â¯</div><div className="empty-text">å½æ¥ãå¥åããã¨<br/>æ³äºã®æ¥ç¨ãèªåã§è¡¨ç¤ºããã¾ã</div></div>
+              <div className="empty-state"><div className="empty-icon" style={{fontSize:22}}>◯</div><div className="empty-text">命日を入力すると<br/>法事の日程が自動で表示されます</div></div>
             ) : hojiDates.map(h => {
               const days = Math.ceil((h.date-new Date())/86400000)
               const isNext = nextHoji?.key===h.key
@@ -389,9 +389,9 @@ export default function OhakaApp({ onOpenPricing }) {
                 <div key={h.key} className={`hoji-item${h.past?' done':isNext?' is-next':' upcoming'}`}>
                   <div className="h-dot-col"><div className="h-dot"/></div>
                   <div className="h-body">
-                    <div className="h-name">{h.label}{h.past&&' â'}</div>
+                    <div className="h-name">{h.label}{h.past&&' ✓'}</div>
                     <div className="h-date">{h.date.toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric'})}</div>
-                    {!h.past && days>0 && <div className="h-countdown">ãã¨ {days} æ¥</div>}
+                    {!h.past && days>0 && <div className="h-countdown">あと {days} 日</div>}
                     {h.note && <div className="h-note">{h.note}</div>}
                   </div>
                 </div>
@@ -401,12 +401,12 @@ export default function OhakaApp({ onOpenPricing }) {
         </>)}
 
    
-        {/* æãåº */}
+        {/* 思い出 */}
         {tab==='memories' && !memForm && (<>
-          <div className="sec-label">Memory Album â {(data.memories||[]).length} ä»¶</div>
+          <div className="sec-label">Memory Album — {(data.memories||[]).length} 件</div>
           <div className="card">
             {(data.memories||[]).length===0 ? (
-              <div className="empty-state"><div className="empty-icon">ð·</div><div className="empty-text">æäººã®æãåºãåçã»ã¨ãã½ã¼ãã§è¨é²ã§ãã¾ãã<br/>å®¶æã¿ããªã§æ¯ãè¿ããå ´æã§ãã</div></div>
+              <div className="empty-state"><div className="empty-icon">📷</div><div className="empty-text">故人の思い出を写真・エピソードで記録できます。<br/>家族みんなで振り返れる場所です。</div></div>
             ) : (data.memories||[]).map(m => (
               <div key={m.id} style={{padding:'20px 0',borderBottom:'1px solid var(--border)',cursor:'pointer'}} onClick={()=>setMemForm(m)}>
                 {m.photo && <img src={m.photo} alt="" style={{width:'100%',height:160,objectFit:'cover',borderRadius:2,marginBottom:12}}/>}
@@ -416,98 +416,98 @@ export default function OhakaApp({ onOpenPricing }) {
               </div>
             ))}
           </div>
-          <div style={{textAlign:'right'}}><button className="btn btn-solid" onClick={()=>setMemForm({title:'',date:'',desc:'',photo:''})}>ï¼ æãåºãè¿½å </button></div>
+          <div style={{textAlign:'right'}}><button className="btn btn-solid" onClick={()=>setMemForm({title:'',date:'',desc:'',photo:''})}>＋ 思い出を追加</button></div>
         </>)}
         {tab==='memories' && memForm && (<>
           <div className="sec-label">{memForm.id?'Edit Memory':'New Memory'}</div>
           <div className="card">
-            <div className="fg"><label>ã¿ã¤ãã«</label><input value={memForm.title||''} onChange={e=>setMemForm(f=>({...f,title:e.target.value}))} placeholder="ãç¶ããã®æãåº"/></div>
-            <div className="fg"><label>æ¥ä»</label><input type="date" value={memForm.date||''} onChange={e=>setMemForm(f=>({...f,date:e.target.value}))}/></div>
-            <div className="fg"><label>ã¨ãã½ã¼ã</label><textarea value={memForm.desc||''} onChange={e=>setMemForm(f=>({...f,desc:e.target.value}))} placeholder="æãåºãèªç±ã«æ¸ãã¦ãã ããâ¦"/></div>
+            <div className="fg"><label>タイトル</label><input value={memForm.title||''} onChange={e=>setMemForm(f=>({...f,title:e.target.value}))} placeholder="お父さんの思い出"/></div>
+            <div className="fg"><label>日付</label><input type="date" value={memForm.date||''} onChange={e=>setMemForm(f=>({...f,date:e.target.value}))}/></div>
+            <div className="fg"><label>エピソード</label><textarea value={memForm.desc||''} onChange={e=>setMemForm(f=>({...f,desc:e.target.value}))} placeholder="思い出を自由に書いてください…"/></div>
             <div className="fg">
-              <label>åç</label>
+              <label>写真</label>
               {memForm.photo ? <img src={memForm.photo} alt="" style={{width:'100%',height:160,objectFit:'cover',borderRadius:2,marginBottom:8}}/> : null}
-              <button className="btn btn-ghost" style={{fontSize:11,padding:'8px 16px'}} onClick={()=>memPhotoRef.current?.click()}>åçãé¸ã¶</button>
+              <button className="btn btn-ghost" style={{fontSize:11,padding:'8px 16px'}} onClick={()=>memPhotoRef.current?.click()}>写真を選ぶ</button>
               <input ref={memPhotoRef} type="file" accept="image/*" style={{display:'none'}} onChange={e=>{const f2=e.target.files?.[0];if(!f2)return;const r=new FileReader();r.onload=ev=>setMemForm(f=>({...f,photo:ev.target.result}));r.readAsDataURL(f2);e.target.value=''}}/>
             </div>
             <div className="btns">
-              {memForm.id && <button className="btn btn-danger" onClick={()=>{setData(d=>({...d,memories:d.memories.filter(m=>m.id!==memForm.id)}));setMemForm(null)}}>åé¤</button>}
-              <button className="btn btn-ghost" onClick={()=>setMemForm(null)}>ã­ã£ã³ã»ã«</button>
-              <button className="btn btn-solid" onClick={()=>{if(!memForm?.title)return;if(memForm.id)setData(d=>({...d,memories:d.memories.map(m=>m.id===memForm.id?memForm:m)}));else setData(d=>({...d,memories:[...(d.memories||[]),{...memForm,id:Date.now().toString()}]}));setMemForm(null)}}>ä¿å­</button>
+              {memForm.id && <button className="btn btn-danger" onClick={()=>{setData(d=>({...d,memories:d.memories.filter(m=>m.id!==memForm.id)}));setMemForm(null)}}>削除</button>}
+              <button className="btn btn-ghost" onClick={()=>setMemForm(null)}>キャンセル</button>
+              <button className="btn btn-solid" onClick={()=>{if(!memForm?.title)return;if(memForm.id)setData(d=>({...d,memories:d.memories.map(m=>m.id===memForm.id?memForm:m)}));else setData(d=>({...d,memories:[...(d.memories||[]),{...memForm,id:Date.now().toString()}]}));setMemForm(null)}}>保存</button>
             </div>
           </div>
         </>)}
 
-        {/* å¸¹äº */}
+        {/* 帹事 */}
         {tab==='kanji' && !evForm && (<>
-          <div className="sec-label">æ³äºã®å¸¹äº â {(data.events||[]).length} ä»¶</div>
+          <div className="sec-label">法事の帹事 — {(data.events||[]).length} 件</div>
           <div className="card">
             {(data.events||[]).length===0 ? (
-              <div className="empty-state"><div className="empty-icon">ð</div><div className="empty-text">æ³äºã®æ¡åã»åºæ¬ ç®¡çãã§ãã¾ãã<br/>åå èåãã¿ããããã¨åºæ¬ ãåãæ¿ããã¾ãï¼ï¼ââââï¼ã</div></div>
+              <div className="empty-state"><div className="empty-icon">📋</div><div className="empty-text">法事の案内・出欠管理ができます。<br/>参加者名をタップすると出欠が切り替わります（？→✓→✕）。</div></div>
             ) : (data.events||[]).map(ev => {
               const yes=(ev.attendees||[]).filter(a=>a.status==='yes').length;
               const no=(ev.attendees||[]).filter(a=>a.status==='no').length;
               return (
                 <div key={ev.id} style={{padding:'18px 0',borderBottom:'1px solid var(--border)'}}>
                   <div style={{fontFamily:'var(--serif)',fontSize:16,color:'var(--ink)',marginBottom:6,cursor:'pointer'}} onClick={()=>setEvForm(ev)}>{ev.name}</div>
-                  <div style={{fontSize:12,color:'var(--ink3)',marginBottom:10}}>{ev.date&&<span>{ev.date}ã</span>}{ev.place&&<span>{ev.place}</span>}</div>
+                  <div style={{fontSize:12,color:'var(--ink3)',marginBottom:10}}>{ev.date&&<span>{ev.date}　</span>}{ev.place&&<span>{ev.place}</span>}</div>
                   <div>
                     {(ev.attendees||[]).map(a=>(
-                      <span key={a.name} style={{display:'inline-flex',alignItems:'center',gap:6,padding:'4px 10px',border:'1px solid var(--border)',borderRadius:100,fontSize:11,cursor:'pointer',margin:'3px 3px 0 0',...(a.status==='yes'?{background:'rgba(138,104,48,0.08)',borderColor:'var(--gold2)',color:'var(--gold)'}:a.status==='no'?{background:'rgba(160,60,60,0.06)',borderColor:'rgba(160,60,60,0.3)',color:'#a03c3c'}:{})}} onClick={()=>setData(d=>({...d,events:d.events.map(e=>{if(e.id!==ev.id)return e;const cur=(e.attendees||[]).find(a2=>a2.name===a.name);const nxt=cur?(cur.status==='?'?'yes':cur.status==='yes'?'no':'?'):'?';return{...e,attendees:[...(e.attendees||[]).filter(a2=>a2.name!==a.name),{name:a.name,status:nxt}]};})}))}>{a.status==='yes'?'â':a.status==='no'?'â':'ï¼'} {a.name}</span>
+                      <span key={a.name} style={{display:'inline-flex',alignItems:'center',gap:6,padding:'4px 10px',border:'1px solid var(--border)',borderRadius:100,fontSize:11,cursor:'pointer',margin:'3px 3px 0 0',...(a.status==='yes'?{background:'rgba(138,104,48,0.08)',borderColor:'var(--gold2)',color:'var(--gold)'}:a.status==='no'?{background:'rgba(160,60,60,0.06)',borderColor:'rgba(160,60,60,0.3)',color:'#a03c3c'}:{})}} onClick={()=>setData(d=>({...d,events:d.events.map(e=>{if(e.id!==ev.id)return e;const cur=(e.attendees||[]).find(a2=>a2.name===a.name);const nxt=cur?(cur.status==='?'?'yes':cur.status==='yes'?'no':'?'):'?';return{...e,attendees:[...(e.attendees||[]).filter(a2=>a2.name!==a.name),{name:a.name,status:nxt}]};})}))}>{a.status==='yes'?'✓':a.status==='no'?'✕':'？'} {a.name}</span>
                     ))}
                   </div>
-                  <div style={{fontSize:11,color:'var(--ink3)',marginTop:8}}>åå  {yes}å / ä¸åå  {no}å / æªåç­ {(ev.attendees||[]).length-yes-no}å</div>
-                  <input style={{marginTop:10,flex:1,padding:'8px 12px',border:'1px solid var(--border)',borderRadius:2,fontSize:13,fontFamily:'var(--sans)',background:'var(--paper)',outline:'none',width:'100%'}} placeholder="åå èãè¿½å  (Enterã­ã¼)" onKeyDown={e=>{if(e.key==='Enter'&&e.target.value.trim()){setData(d=>({...d,events:d.events.map(ev2=>ev2.id===ev.id?{...ev2,attendees:[...(ev2.attendees||[]),{name:e.target.value.trim(),status:'?'}]}:ev2)}));e.target.value=''}}}/>
+                  <div style={{fontSize:11,color:'var(--ink3)',marginTop:8}}>参加 {yes}名 / 不参加 {no}名 / 未回答 {(ev.attendees||[]).length-yes-no}名</div>
+                  <input style={{marginTop:10,flex:1,padding:'8px 12px',border:'1px solid var(--border)',borderRadius:2,fontSize:13,fontFamily:'var(--sans)',background:'var(--paper)',outline:'none',width:'100%'}} placeholder="参加者を追加 (Enterキー)" onKeyDown={e=>{if(e.key==='Enter'&&e.target.value.trim()){setData(d=>({...d,events:d.events.map(ev2=>ev2.id===ev.id?{...ev2,attendees:[...(ev2.attendees||[]),{name:e.target.value.trim(),status:'?'}]}:ev2)}));e.target.value=''}}}/>
                 </div>
               );
             })}
           </div>
-          <div style={{textAlign:'right'}}><button className="btn btn-solid" onClick={()=>setEvForm({name:'',date:'',place:'',notes:''})}>ï¼ æ³äºãè¿½å </button></div>
+          <div style={{textAlign:'right'}}><button className="btn btn-solid" onClick={()=>setEvForm({name:'',date:'',place:'',notes:''})}>＋ 法事を追加</button></div>
         </>)}
         {tab==='kanji' && evForm && (<>
           <div className="sec-label">{evForm.id?'Edit Event':'New Event'}</div>
           <div className="card">
-            <div className="fg"><label>æ³äºå</label><input value={evForm.name||''} onChange={e=>setEvForm(f=>({...f,name:e.target.value}))} placeholder="ååä¹æ¥æ³è¦"/></div>
+            <div className="fg"><label>法事名</label><input value={evForm.name||''} onChange={e=>setEvForm(f=>({...f,name:e.target.value}))} placeholder="四十九日法要"/></div>
             <div className="row2">
-              <div className="fg"><label>æ¥ä»</label><input type="date" value={evForm.date||''} onChange={e=>setEvForm(f=>({...f,date:e.target.value}))}/></div>
-              <div className="fg"><label>å ´æ</label><input value={evForm.place||''} onChange={e=>setEvForm(f=>({...f,place:e.target.value}))} placeholder="ââå¯º"/></div>
+              <div className="fg"><label>日付</label><input type="date" value={evForm.date||''} onChange={e=>setEvForm(f=>({...f,date:e.target.value}))}/></div>
+              <div className="fg"><label>場所</label><input value={evForm.place||''} onChange={e=>setEvForm(f=>({...f,place:e.target.value}))} placeholder="○○寺"/></div>
             </div>
-            <div className="fg"><label>ã¡ã¢</label><textarea value={evForm.notes||''} onChange={e=>setEvForm(f=>({...f,notes:e.target.value}))} placeholder="æã¡ç©ã»é£çµ¡äºé ãªã©â¦"/></div>
+            <div className="fg"><label>メモ</label><textarea value={evForm.notes||''} onChange={e=>setEvForm(f=>({...f,notes:e.target.value}))} placeholder="持ち物・連絡事項など…"/></div>
             <div className="btns">
-              {evForm.id && <button className="btn btn-danger" onClick={()=>{setData(d=>({...d,events:d.events.filter(e=>e.id!==evForm.id)}));setEvForm(null)}}>åé¤</button>}
-              <button className="btn btn-ghost" onClick={()=>setEvForm(null)}>ã­ã£ã³ã»ã«</button>
-              <button className="btn btn-solid" onClick={()=>{if(!evForm?.name)return;if(evForm.id)setData(d=>({...d,events:d.events.map(e=>e.id===evForm.id?evForm:e)}));else setData(d=>({...d,events:[...(d.events||[]),{...evForm,id:Date.now().toString(),attendees:[]}]}));setEvForm(null)}}>ä¿å­</button>
+              {evForm.id && <button className="btn btn-danger" onClick={()=>{setData(d=>({...d,events:d.events.filter(e=>e.id!==evForm.id)}));setEvForm(null)}}>削除</button>}
+              <button className="btn btn-ghost" onClick={()=>setEvForm(null)}>キャンセル</button>
+              <button className="btn btn-solid" onClick={()=>{if(!evForm?.name)return;if(evForm.id)setData(d=>({...d,events:d.events.map(e=>e.id===evForm.id?evForm:e)}));else setData(d=>({...d,events:[...(d.events||[]),{...evForm,id:Date.now().toString(),attendees:[]}]}));setEvForm(null)}}>保存</button>
             </div>
           </div>
         </>)}
 
-        {/* å®¶æ */}
+        {/* 家族 */}
         {tab==='family' && (<>
-          <div className="sec-label">Family Group â {(data.family||[]).length} äºº</div>
+          <div className="sec-label">Family Group — {(data.family||[]).length} 人</div>
           <div className="card">
-            <div style={{fontSize:13,color:'var(--ink3)',marginBottom:20,lineHeight:1.8}}>ð¨âð©âð§ å®¶æãç»é²ãã¦ããã¨ããå¢ã®å¼ãç¶ããæ³äºã®é£çµ¡ãã¹ã ã¼ãºã«ãªãã¾ãã</div>
+            <div style={{fontSize:13,color:'var(--ink3)',marginBottom:20,lineHeight:1.8}}>👨‍👩‍👧 家族を登録しておくと、お墓の引き継ぎや法事の連絡がスムーズになります。</div>
             {(data.family||[]).map(f=>(
               <div key={f.id} style={{display:'flex',alignItems:'center',gap:14,padding:'14px 0',borderBottom:'1px solid var(--border)'}}>
-                <div style={{width:40,height:40,borderRadius:'50%',background:'var(--paper2)',border:'1px solid var(--border)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:18,flexShrink:0}}>ð¤</div>
+                <div style={{width:40,height:40,borderRadius:'50%',background:'var(--paper2)',border:'1px solid var(--border)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:18,flexShrink:0}}>👤</div>
                 <div style={{flex:1}}>
                   <div style={{fontFamily:'var(--serif)',fontSize:16,letterSpacing:'0.06em',color:'var(--ink)'}}>{f.name}</div>
                   {f.role && <div style={{fontSize:11,color:'var(--ink3)',marginTop:2}}>{f.role}</div>}
                 </div>
-                <button className="btn btn-ghost" style={{fontSize:11,padding:'6px 12px'}} onClick={()=>setData(d=>({...d,family:d.family.filter(f2=>f2.id!==f.id)}))}>åé¤</button>
+                <button className="btn btn-ghost" style={{fontSize:11,padding:'6px 12px'}} onClick={()=>setData(d=>({...d,family:d.family.filter(f2=>f2.id!==f.id)}))}>削除</button>
               </div>
             ))}
             <div style={{marginTop:20,display:'flex',gap:10,flexWrap:'wrap'}}>
-              <input style={{flex:2,minWidth:120,padding:'11px 15px',border:'1px solid var(--border)',borderRadius:2,fontSize:14,fontFamily:'var(--sans)',background:'var(--paper)',outline:'none'}} placeholder="åå" value={famName} onChange={e=>setFamName(e.target.value)}/>
-              <input style={{flex:1,minWidth:80,padding:'11px 15px',border:'1px solid var(--border)',borderRadius:2,fontSize:14,fontFamily:'var(--sans)',background:'var(--paper)',outline:'none'}} placeholder="ç¶æ" value={famRole} onChange={e=>setFamRole(e.target.value)}/>
-              <button className="btn btn-solid" onClick={()=>{if(!famName.trim())return;setData(d=>({...d,family:[...(d.family||[]),{id:Date.now().toString(),name:famName.trim(),role:famRole.trim()}]}));setFamName('');setFamRole('')}}>è¿½å </button>
+              <input style={{flex:2,minWidth:120,padding:'11px 15px',border:'1px solid var(--border)',borderRadius:2,fontSize:14,fontFamily:'var(--sans)',background:'var(--paper)',outline:'none'}} placeholder="名前" value={famName} onChange={e=>setFamName(e.target.value)}/>
+              <input style={{flex:1,minWidth:80,padding:'11px 15px',border:'1px solid var(--border)',borderRadius:2,fontSize:14,fontFamily:'var(--sans)',background:'var(--paper)',outline:'none'}} placeholder="続柄" value={famRole} onChange={e=>setFamRole(e.target.value)}/>
+              <button className="btn btn-solid" onClick={()=>{if(!famName.trim())return;setData(d=>({...d,family:[...(d.family||[]),{id:Date.now().toString(),name:famName.trim(),role:famRole.trim()}]}));setFamName('');setFamRole('')}}>追加</button>
             </div>
           </div>
         </>)}
 
-             {/* ãã§ãã¯ãªã¹ã */}
+             {/* チェックリスト */}
         {tab==='checklist' && (<>
           <div className="sec-label">Funeral Checklist</div>
-          <div className="progress-info"><span className="progress-title">é²æ</span><span className="progress-count">{doneCount} / {allItems.length}</span></div>
+          <div className="progress-info"><span className="progress-title">進捗</span><span className="progress-count">{doneCount} / {allItems.length}</span></div>
           <div className="prog-bar"><div className="prog-fill" style={{width:`${allItems.length?doneCount/allItems.length*100:0}%`}}/></div>
           <div className="card">
             {Object.entries(CHECKS).map(([section,items]) => (
@@ -524,11 +524,11 @@ export default function OhakaApp({ onOpenPricing }) {
                 })}
               </div>
             ))}
-            <div style={{textAlign:'right',marginTop:4}}><button className="btn btn-ghost" style={{fontSize:11,padding:'8px 16px'}} onClick={() => setChecks({})}>ãªã»ãã</button></div>
+            <div style={{textAlign:'right',marginTop:4}}><button className="btn btn-ghost" style={{fontSize:11,padding:'8px 16px'}} onClick={() => setChecks({})}>リセット</button></div>
           </div>
         </>)}
 
-        {/* AIãã£ãã */}
+        {/* AIチャット */}
         {tab==='chat' && (<>
           <div className="sec-label">Consultation</div>
           <div className="card">
@@ -537,112 +537,112 @@ export default function OhakaApp({ onOpenPricing }) {
               <div className="chat-msgs">
                 {msgs.map((m,i) => (
                   <div key={i} className={`msg ${m.role}`}>
-                    <div className="msg-av">{m.role==='ai'?'â¦':'ç§'}</div>
+                    <div className="msg-av">{m.role==='ai'?'✦':'私'}</div>
                     <div className="msg-bub">{m.content}</div>
                   </div>
                 ))}
-                {loading && <div className="msg ai"><div className="msg-av">â¦</div><div className="msg-bub"><div className="typing"><span/><span/><span/></div></div></div>}
+                {loading && <div className="msg ai"><div className="msg-av">✦</div><div className="msg-bub"><div className="typing"><span/><span/><span/></div></div></div>}
                 <div ref={msgEnd}/>
               </div>
               <div className="chat-in">
-                <input value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>e.key==='Enter'&&sendMsg()} placeholder="ãè³ªåããå¥åãã ãã" disabled={loading}/>
-                <button className="send-btn" onClick={() => sendMsg()} disabled={loading||!input.trim()}>âº</button>
+                <input value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>e.key==='Enter'&&sendMsg()} placeholder="ご質問をご入力ください" disabled={loading}/>
+                <button className="send-btn" onClick={() => sendMsg()} disabled={loading||!input.trim()}>›</button>
               </div>
             </div>
           </div>
         </>)}
 
-        {/* å¼ãç¶ã */}
-        {/* ããããã¼ã */}
+        {/* 引き継ぎ */}
+        {/* もしもノート */}
         {tab==='mosimo' && (<>
-          <div style={{fontFamily:'var(--serif)',fontSize:22,fontWeight:500,letterSpacing:'0.15em',color:'var(--ink)',textAlign:'center',marginBottom:8}}>ããããã¼ã</div>
-          <div style={{fontSize:12,color:'var(--ink3)',textAlign:'center',letterSpacing:'0.06em',marginBottom:32,lineHeight:1.8}}>ä¸ãä¸ã®æãå®¶æãè¿·ããªãããã«ã<br/>ä»æ¥æ¸ãã¦ãããã¨ããå®¶æã¸ã®æå¤§ã®è´ãç©ã§ãã</div>
+          <div style={{fontFamily:'var(--serif)',fontSize:22,fontWeight:500,letterSpacing:'0.15em',color:'var(--ink)',textAlign:'center',marginBottom:8}}>もしもノート</div>
+          <div style={{fontSize:12,color:'var(--ink3)',textAlign:'center',letterSpacing:'0.06em',marginBottom:32,lineHeight:1.8}}>万が一の時、家族が迷わないために。<br/>今日書いておくことが、家族への最大の贈り物です。</div>
           <div style={{background:'white',border:'1px solid var(--border)',borderRadius:3,padding:28,marginBottom:16,position:'relative'}}>
             <div style={{position:'absolute',top:0,left:24,right:24,height:1,background:'linear-gradient(90deg,transparent,var(--gold3),transparent)',opacity:.5}}/>
             <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:20}}>
-              <span style={{fontFamily:'var(--serif)',fontSize:16,letterSpacing:'0.1em',color:'var(--ink)'}}>ç§ã«ã¤ãã¦</span>
+              <span style={{fontFamily:'var(--serif)',fontSize:16,letterSpacing:'0.1em',color:'var(--ink)'}}>私について</span>
             </div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>è¡æ¶²å</label><input value={(data.mosimo?.["about"]?.["bloodtype"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["about"]:{...(d.mosimo?.["about"]||{}),["bloodtype"]:e.target.value}}}))} placeholder={"Aå"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>ãããã¤ãå»</label><input value={(data.mosimo?.["about"]?.["doctor"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["about"]:{...(d.mosimo?.["about"]||{}),["doctor"]:e.target.value}}}))} placeholder={"ââã¯ãªããã¯"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>æç¨ä¸­ã®è¬</label><input value={(data.mosimo?.["about"]?.["medicine"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["about"]:{...(d.mosimo?.["about"]||{}),["medicine"]:e.target.value}}}))} placeholder={"ââè¬"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>ã¢ã¬ã«ã®ã¼</label><input value={(data.mosimo?.["about"]?.["allergy"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["about"]:{...(d.mosimo?.["about"]||{}),["allergy"]:e.target.value}}}))} placeholder={"ããã·ãªã³ç³»â¦"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>血液型</label><input value={(data.mosimo?.["about"]?.["bloodtype"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["about"]:{...(d.mosimo?.["about"]||{}),["bloodtype"]:e.target.value}}}))} placeholder={"A型"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>かかりつき医</label><input value={(data.mosimo?.["about"]?.["doctor"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["about"]:{...(d.mosimo?.["about"]||{}),["doctor"]:e.target.value}}}))} placeholder={"○○クリニック"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>服用中の薬</label><input value={(data.mosimo?.["about"]?.["medicine"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["about"]:{...(d.mosimo?.["about"]||{}),["medicine"]:e.target.value}}}))} placeholder={"○○薬"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>アレルギー</label><input value={(data.mosimo?.["about"]?.["allergy"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["about"]:{...(d.mosimo?.["about"]||{}),["allergy"]:e.target.value}}}))} placeholder={"ペニシリン系…"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
           </div>
           <div style={{background:'white',border:'1px solid var(--border)',borderRadius:3,padding:28,marginBottom:16,position:'relative'}}>
             <div style={{position:'absolute',top:0,left:24,right:24,height:1,background:'linear-gradient(90deg,transparent,var(--gold3),transparent)',opacity:.5}}/>
             <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:20}}>
-              <span style={{fontFamily:'var(--serif)',fontSize:16,letterSpacing:'0.1em',color:'var(--ink)'}}>è¬åã®å¸æ</span>
+              <span style={{fontFamily:'var(--serif)',fontSize:16,letterSpacing:'0.1em',color:'var(--ink)'}}>葬儀の希望</span>
             </div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>å½¢å¼</label><input value={(data.mosimo?.["funeral"]?.["style"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["funeral"]:{...(d.mosimo?.["funeral"]||{}),["style"]:e.target.value}}}))} placeholder={"å®¶æ´¼è¬ãç´è¬â¦"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>å¸æå ´æ</label><input value={(data.mosimo?.["funeral"]?.["place"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["funeral"]:{...(d.mosimo?.["funeral"]||{}),["place"]:e.target.value}}}))} placeholder={"ââå¯ºâ¦"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>å¼ãã§ã»ããäºº</label><input value={(data.mosimo?.["funeral"]?.["invite"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["funeral"]:{...(d.mosimo?.["funeral"]||{}),["invite"]:e.target.value}}}))} placeholder={"å®¶æã®ã¿â¦"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>ãã®ä»å¸æ</label><input value={(data.mosimo?.["funeral"]?.["wishes"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["funeral"]:{...(d.mosimo?.["funeral"]||{}),["wishes"]:e.target.value}}}))} placeholder={"æ´¾æãªãã¨ã¯ä¸è¦â¦"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>形式</label><input value={(data.mosimo?.["funeral"]?.["style"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["funeral"]:{...(d.mosimo?.["funeral"]||{}),["style"]:e.target.value}}}))} placeholder={"家洼葬、直葬…"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>希望場所</label><input value={(data.mosimo?.["funeral"]?.["place"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["funeral"]:{...(d.mosimo?.["funeral"]||{}),["place"]:e.target.value}}}))} placeholder={"○○寺…"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>呼んでほしい人</label><input value={(data.mosimo?.["funeral"]?.["invite"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["funeral"]:{...(d.mosimo?.["funeral"]||{}),["invite"]:e.target.value}}}))} placeholder={"家族のみ…"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>その他希望</label><input value={(data.mosimo?.["funeral"]?.["wishes"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["funeral"]:{...(d.mosimo?.["funeral"]||{}),["wishes"]:e.target.value}}}))} placeholder={"派手なことは不要…"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
           </div>
           <div style={{background:'white',border:'1px solid var(--border)',borderRadius:3,padding:28,marginBottom:16,position:'relative'}}>
             <div style={{position:'absolute',top:0,left:24,right:24,height:1,background:'linear-gradient(90deg,transparent,var(--gold3),transparent)',opacity:.5}}/>
             <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:20}}>
-              <span style={{fontFamily:'var(--serif)',fontSize:16,letterSpacing:'0.1em',color:'var(--ink)'}}>è²¡ç£ã»ä¿é©</span>
+              <span style={{fontFamily:'var(--serif)',fontSize:16,letterSpacing:'0.1em',color:'var(--ink)'}}>財産・保险</span>
             </div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>éè¡å£åº§</label><input value={(data.mosimo?.["asset"]?.["bank"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["asset"]:{...(d.mosimo?.["asset"]||{}),["bank"]:e.target.value}}}))} placeholder={"ââéè¡ (çªå·ã¯æ¸ããªã)"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>çå½ä¿éº</label><input value={(data.mosimo?.["asset"]?.["insurance"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["asset"]:{...(d.mosimo?.["asset"]||{}),["insurance"]:e.target.value}}}))} placeholder={"ââçå½"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>å¹´éã»è²¡å½¢</label><input value={(data.mosimo?.["asset"]?.["pension"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["asset"]:{...(d.mosimo?.["asset"]||{}),["pension"]:e.target.value}}}))} placeholder={"åçå¹´éãiDeCoâ¦"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>ä¸åç£</label><input value={(data.mosimo?.["asset"]?.["realstate"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["asset"]:{...(d.mosimo?.["asset"]||{}),["realstate"]:e.target.value}}}))} placeholder={"èªå®ãåå°â¦"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>銀行口座</label><input value={(data.mosimo?.["asset"]?.["bank"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["asset"]:{...(d.mosimo?.["asset"]||{}),["bank"]:e.target.value}}}))} placeholder={"○○銀行 (番号は書かない)"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>生命保険</label><input value={(data.mosimo?.["asset"]?.["insurance"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["asset"]:{...(d.mosimo?.["asset"]||{}),["insurance"]:e.target.value}}}))} placeholder={"○○生命"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>年金・財形</label><input value={(data.mosimo?.["asset"]?.["pension"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["asset"]:{...(d.mosimo?.["asset"]||{}),["pension"]:e.target.value}}}))} placeholder={"厚生年金、iDeCo…"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>不動産</label><input value={(data.mosimo?.["asset"]?.["realstate"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["asset"]:{...(d.mosimo?.["asset"]||{}),["realstate"]:e.target.value}}}))} placeholder={"自宅、土地…"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
           </div>
           <div style={{background:'white',border:'1px solid var(--border)',borderRadius:3,padding:28,marginBottom:16,position:'relative'}}>
             <div style={{position:'absolute',top:0,left:24,right:24,height:1,background:'linear-gradient(90deg,transparent,var(--gold3),transparent)',opacity:.5}}/>
             <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:20}}>
-              <span style={{fontFamily:'var(--serif)',fontSize:16,letterSpacing:'0.1em',color:'var(--ink)'}}>ç·æ¥é£çµ¡å</span>
+              <span style={{fontFamily:'var(--serif)',fontSize:16,letterSpacing:'0.1em',color:'var(--ink)'}}>緊急連絡先</span>
             </div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>æåã«é£çµ¡ããäºº</label><input value={(data.mosimo?.["contacts"]?.["c1"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["contacts"]:{...(d.mosimo?.["contacts"]||{}),["c1"]:e.target.value}}}))} placeholder={"ååï¼ç¶æï¼090-XXXX"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>2çªç®ã«é£çµ¡ããäºº</label><input value={(data.mosimo?.["contacts"]?.["c2"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["contacts"]:{...(d.mosimo?.["contacts"]||{}),["c2"]:e.target.value}}}))} placeholder={"ååï¼ç¶æï¼090-XXXX"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>å¼è­·å£«ã»å²å£«</label><input value={(data.mosimo?.["contacts"]?.["lawyer"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["contacts"]:{...(d.mosimo?.["contacts"]||{}),["lawyer"]:e.target.value}}}))} placeholder={"ââæ³å¾äºåæ"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>è©æå¯º</label><input value={(data.mosimo?.["contacts"]?.["temple"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["contacts"]:{...(d.mosimo?.["contacts"]||{}),["temple"]:e.target.value}}}))} placeholder={"ââå¯º ä¹èª å±±â¦"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>最初に連絡する人</label><input value={(data.mosimo?.["contacts"]?.["c1"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["contacts"]:{...(d.mosimo?.["contacts"]||{}),["c1"]:e.target.value}}}))} placeholder={"名前（続柄）090-XXXX"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>2番目に連絡する人</label><input value={(data.mosimo?.["contacts"]?.["c2"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["contacts"]:{...(d.mosimo?.["contacts"]||{}),["c2"]:e.target.value}}}))} placeholder={"名前（続柄）090-XXXX"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>弁護士・哲士</label><input value={(data.mosimo?.["contacts"]?.["lawyer"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["contacts"]:{...(d.mosimo?.["contacts"]||{}),["lawyer"]:e.target.value}}}))} placeholder={"○○法律事務所"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>菩提寺</label><input value={(data.mosimo?.["contacts"]?.["temple"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["contacts"]:{...(d.mosimo?.["contacts"]||{}),["temple"]:e.target.value}}}))} placeholder={"○○寺 之誠山…"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
           </div>
           <div style={{background:'white',border:'1px solid var(--border)',borderRadius:3,padding:28,marginBottom:16,position:'relative'}}>
             <div style={{position:'absolute',top:0,left:24,right:24,height:1,background:'linear-gradient(90deg,transparent,var(--gold3),transparent)',opacity:.5}}/>
             <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:20}}>
-              <span style={{fontFamily:'var(--serif)',fontSize:16,letterSpacing:'0.1em',color:'var(--ink)'}}>ãã¸ã¿ã«è³ç£</span>
+              <span style={{fontFamily:'var(--serif)',fontSize:16,letterSpacing:'0.1em',color:'var(--ink)'}}>デジタル資産</span>
             </div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>ã¡ã¤ã³ã¡ã¼ã«</label><input value={(data.mosimo?.["digital"]?.["email"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["digital"]:{...(d.mosimo?.["digital"]||{}),["email"]:e.target.value}}}))} placeholder={"xxxx@gmail.com (ãã¹ã¯ã¼ãã¯æ¸ããªã)"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>SNSã¢ã«ã¦ã³ã</label><input value={(data.mosimo?.["digital"]?.["sns"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["digital"]:{...(d.mosimo?.["digital"]||{}),["sns"]:e.target.value}}}))} placeholder={"ã¡ã¢ãªã¢ã«åå¸æã®ã¢ã«ã¦ã³ã"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>ãµãã¹ã¯</label><input value={(data.mosimo?.["digital"]?.["sub"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["digital"]:{...(d.mosimo?.["digital"]||{}),["sub"]:e.target.value}}}))} placeholder={"Netflix, Amazon Primeâ¦ (è§£ç´ä¾é ¼)"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>æè³ã»ä»®æ³éè²¨</label><input value={(data.mosimo?.["digital"]?.["crypto"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["digital"]:{...(d.mosimo?.["digital"]||{}),["crypto"]:e.target.value}}}))} placeholder={"ââè¨¼å¸â¦"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>メインメール</label><input value={(data.mosimo?.["digital"]?.["email"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["digital"]:{...(d.mosimo?.["digital"]||{}),["email"]:e.target.value}}}))} placeholder={"xxxx@gmail.com (パスワードは書かない)"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>SNSアカウント</label><input value={(data.mosimo?.["digital"]?.["sns"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["digital"]:{...(d.mosimo?.["digital"]||{}),["sns"]:e.target.value}}}))} placeholder={"メモリアル化希望のアカウント"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>サブスク</label><input value={(data.mosimo?.["digital"]?.["sub"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["digital"]:{...(d.mosimo?.["digital"]||{}),["sub"]:e.target.value}}}))} placeholder={"Netflix, Amazon Prime… (解約依頼)"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>投資・仮想通貨</label><input value={(data.mosimo?.["digital"]?.["crypto"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["digital"]:{...(d.mosimo?.["digital"]||{}),["crypto"]:e.target.value}}}))} placeholder={"○○証券…"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
           </div>
           <div style={{background:'white',border:'1px solid var(--border)',borderRadius:3,padding:28,marginBottom:16,position:'relative'}}>
             <div style={{position:'absolute',top:0,left:24,right:24,height:1,background:'linear-gradient(90deg,transparent,var(--gold3),transparent)',opacity:.5}}/>
             <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:20}}>
-              <span style={{fontFamily:'var(--serif)',fontSize:16,letterSpacing:'0.1em',color:'var(--ink)'}}>å®¶æã¸ã®ã¡ãã»ã¼ã¸</span>
+              <span style={{fontFamily:'var(--serif)',fontSize:16,letterSpacing:'0.1em',color:'var(--ink)'}}>家族へのメッセージ</span>
             </div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>å®¶æã¸</label><textarea value={(data.mosimo?.["message"]?.["letter"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["message"]:{...(d.mosimo?.["message"]||{}),["letter"]:e.target.value}}}))} placeholder={"ããã«è¨èãâ¦ãå®¶æã®å®ç©ã«ãªãã¾ãã"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none',resize:'vertical',minHeight:100,lineHeight:1.8}}/></div>
-            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>ãããã»å®¶ã®å¼ãç¶ã</label><input value={(data.mosimo?.["message"]?.["pet"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["message"]:{...(d.mosimo?.["message"]||{}),["pet"]:e.target.value}}}))} placeholder={"ç¬ã®ååã¯â¦"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>家族へ</label><textarea value={(data.mosimo?.["message"]?.["letter"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["message"]:{...(d.mosimo?.["message"]||{}),["letter"]:e.target.value}}}))} placeholder={"ここに言葉を…。家族の宝物になります。"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none',resize:'vertical',minHeight:100,lineHeight:1.8}}/></div>
+            <div style={{marginBottom:16}}><label style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8}}>ペット・家の引き継ぎ</label><input value={(data.mosimo?.["message"]?.["pet"])||''} onChange={e=>setData(d=>({...d,mosimo:{...d.mosimo,["message"]:{...(d.mosimo?.["message"]||{}),["pet"]:e.target.value}}}))} placeholder={"犬の名前は…"} style={{width:'100%',background:'var(--paper)',border:'1px solid var(--border)',borderRadius:2,padding:'12px 15px',fontFamily:'var(--sans)',fontSize:14,fontWeight:300,color:'var(--ink)',outline:'none'}}/></div>
           </div>
           <div style={{background:'linear-gradient(135deg,var(--paper2),var(--paper3))',border:'1px solid var(--border2)',borderRadius:2,padding:'20px 24px',marginTop:8,fontSize:12,color:'var(--ink3)',lineHeight:1.9,letterSpacing:'0.04em'}}>
-            <strong style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8,fontWeight:400}}>ãã©ã¤ãã·ã¼ã«ã¤ãã¦</strong>
-            ãã¹ã¯ã¼ããæè¨¼çªå·ã¯çµ¶å¯¾ã«æ¸ããªãã§ãã ããããã®ãã¼ãã¯å°å·ï¼Ctrl+Pï¼ãã¦ã¨ã³ãã£ã³ã°ãã¼ãã¨ä¸ç·ã«ä¿ç®¡ãããã¨ããå§ããã¾ãã
+            <strong style={{display:'block',fontSize:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'var(--gold)',marginBottom:8,fontWeight:400}}>プライバシーについて</strong>
+            パスワードや暗証番号は絶対に書かないでください。このノートは印刷（Ctrl+P）してエンディングノートと一緒に保管することをお勧めします。
           </div>
-          <div style={{textAlign:'right',marginTop:16}}><button className="btn btn-solid" onClick={()=>{persist(data);alert('ä¿å­ãã¾ãã')}}>ä¿å­ãã</button></div>
+          <div style={{textAlign:'right',marginTop:16}}><button className="btn btn-solid" onClick={()=>{persist(data);alert('保存しました')}}>保存する</button></div>
         </>)}
 
         {tab==='share' && (<>
           <div className="sec-label">Family Handover</div>
           <div className="card">
-            <div className="fg"><label>ãå®¶æã¸ã®ã¡ãã»ã¼ã¸</label><textarea style={{minHeight:140}} value={data.notes||''} onChange={e=>setData({...data,notes:e.target.value})} placeholder={'ãã®ãå¢å¸³ããå¼ãç¶ãã«ãªãæ¹ã¸ã\nââå¯ºã®ãä½è·ã«ã¯æ¯å¹´âæã«ãæ¨æ¶ãã\nç®¡çè²»ã¯å£åº§å¼è½ã«ã¦æ¯å¹´3æã«å¦çããã¾ãã'}/></div>
+            <div className="fg"><label>ご家族へのメッセージ</label><textarea style={{minHeight:140}} value={data.notes||''} onChange={e=>setData({...data,notes:e.target.value})} placeholder={'このお墓帳をお引き継ぎになる方へ。\n○○寺のご住職には毎年○月にご挨拶を。\n管理費は口座引落にて毎年3月に処理されます。'}/></div>
             {data.graves.length>0 && (<>
               <div style={{borderTop:'1px solid var(--border)',margin:'8px 0 24px'}}/>
               {data.graves.map(g => (
                 <div className="share-entry" key={g.id}>
                   <div className="share-name">{g.name}</div>
-                  {g.temple && <div>å¯ºé¢ã{g.temple}</div>}
-                  {g.sect && <div>å®æ´¾ã{g.sect}</div>}
-                  {g.address && <div>æå¨ã{g.address}</div>}
-                  {g.plot && <div>åºç»ã{g.plot}</div>}
-                  {g.phone && <div>é£çµ¡åã{g.phone}</div>}
+                  {g.temple && <div>寺院　{g.temple}</div>}
+                  {g.sect && <div>宗派　{g.sect}</div>}
+                  {g.address && <div>所在　{g.address}</div>}
+                  {g.plot && <div>区画　{g.plot}</div>}
+                  {g.phone && <div>連絡先　{g.phone}</div>}
                   {g.access && <div style={{marginTop:8,color:'var(--ink3)'}}>{g.access}</div>}
-                  {g.address && <div style={{marginTop:12}}><button className="btn btn-ghost" style={{fontSize:11,padding:'8px 16px'}} onClick={() => openMap(g.address)}>å°å³ãéã â</button></div>}
+                  {g.address && <div style={{marginTop:12}}><button className="btn btn-ghost" style={{fontSize:11,padding:'8px 16px'}} onClick={() => openMap(g.address)}>地図を開く →</button></div>}
                 </div>
               ))}
             </>)}
-            <div className="hint-box"><strong>å°å·ã»ä¿å­ã«ã¤ãã¦</strong>ãã©ã¦ã¶ã®å°å·æ©è½ï¼Ctrl+Pï¼ã§PDFã¨ãã¦ä¿å­ããã¨ã³ãã£ã³ã°ãã¼ããéåº«ã«ä¿ç®¡ãããã¨ããå§ããã¾ãã</div>
-            <div className="btns"><button className="btn btn-solid" onClick={() => { persist(data); alert('ä¿å­ãã¾ãã') }}>ä¿å­ãã</button></div>
+            <div className="hint-box"><strong>印刷・保存について</strong>ブラウザの印刷機能（Ctrl+P）でPDFとして保存し、エンディングノートや金庫に保管することをお勧めします。</div>
+            <div className="btns"><button className="btn btn-solid" onClick={() => { persist(data); alert('保存しました') }}>保存する</button></div>
           </div>
         </>)}
       </div>
