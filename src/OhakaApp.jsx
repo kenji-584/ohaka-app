@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 
 const SK = 'ohaka_v3'
-const load = () => { try { return JSON.parse(localStorage.getItem(SK)) || { graves: [], notes: '' } } catch { return { graves: [], notes: '' } } }
+const load = () => { try { return JSON.parse(localStorage.getItem(SK)) || { graves: [], memories: [], events: [], family: [], notes: '' } } catch { return { graves: [], memories: [], events: [], family: [], notes: '' } } }
 const persist = d => localStorage.setItem(SK, JSON.stringify(d))
 
 const HOJI = [
@@ -180,8 +180,13 @@ export default function OhakaApp({ onOpenPricing }) {
   const [loading, setLoading] = useState(false)
   const [lightbox, setLightbox] = useState(null)
   const [deathDate, setDeathDate] = useState('')
+  const [memForm, setMemForm] = useState(null)
+  const [evForm, setEvForm] = useState(null)
+  const [famName, setFamName] = useState('')
+  const [famRole, setFamRole] = useState('')
   const msgEnd = useRef(null)
   const photoRef = useRef(null)
+  const memPhotoRef = useRef(null)
 
   useEffect(() => { persist(data) }, [data])
   useEffect(() => { msgEnd.current?.scrollIntoView({ behavior: 'smooth' }) }, [msgs, loading])
@@ -269,7 +274,7 @@ export default function OhakaApp({ onOpenPricing }) {
 
         <div className="nav-wrap">
           <nav className="nav">
-            {[['graves','⛩ お墓'],['hoji','◯ 法事'],['checklist','□ 段取り'],['chat','◇ 相談'],['share','↗ 引継ぎ']].map(([k,l]) => (
+            {[['graves','⛩ お墓'],['memories','📷 思い出'],['hoji','◯ 法事'],['kanji','📋 幹事'],['family','👨‍👩‍👧 家族'],['checklist','□ 段取り'],['chat','◇ 相談'],['share','↗ 引継ぎ']].map(([k,l]) => (
               <button key={k} className={tab===k?'active':''} onClick={() => setTab(k)}>{l}</button>
             ))}
             <button className="pro-btn" onClick={onOpenPricing}>✦ Pro</button>
@@ -377,7 +382,111 @@ export default function OhakaApp({ onOpenPricing }) {
           </div>
         </>)}
 
-        {/* チェックリスト */}
+   
+        {/* 思い出 */}
+        {tab==='memories' && !memForm && (<>
+          <div className="sec-label">Memory Album — {(data.memories||[]).length} 件</div>
+          <div className="card">
+            {(data.memories||[]).length===0 ? (
+              <div className="empty-state"><div className="empty-icon">📷</div><div className="empty-text">故人の思い出を写真・エピソードで記録できます。<br/>家族みんなで振り返れる場所です。</div></div>
+            ) : (data.memories||[]).map(m => (
+              <div key={m.id} style={{padding:'20px 0',borderBottom:'1px solid var(--border)',cursor:'pointer'}} onClick={()=>setMemForm(m)}>
+                {m.photo && <img src={m.photo} alt="" style={{width:'100%',height:160,objectFit:'cover',borderRadius:2,marginBottom:12}}/>}
+                <div style={{fontFamily:'var(--serif)',fontSize:17,letterSpacing:'0.08em',color:'var(--ink)',marginBottom:6}}>{m.title}</div>
+                {m.date && <div style={{fontSize:11,color:'var(--ink3)',marginBottom:6}}>{m.date}</div>}
+                {m.desc && <div style={{fontSize:13,color:'var(--ink3)',lineHeight:1.8}}>{m.desc}</div>}
+              </div>
+            ))}
+          </div>
+          <div style={{textAlign:'right'}}><button className="btn btn-solid" onClick={()=>setMemForm({title:'',date:'',desc:'',photo:''})}>＋ 思い出を追加</button></div>
+        </>)}
+        {tab==='memories' && memForm && (<>
+          <div className="sec-label">{memForm.id?'Edit Memory':'New Memory'}</div>
+          <div className="card">
+            <div className="fg"><label>タイトル</label><input value={memForm.title||''} onChange={e=>setMemForm(f=>({...f,title:e.target.value}))} placeholder="お父さんの思い出"/></div>
+            <div className="fg"><label>日付</label><input type="date" value={memForm.date||''} onChange={e=>setMemForm(f=>({...f,date:e.target.value}))}/></div>
+            <div className="fg"><label>エピソード</label><textarea value={memForm.desc||''} onChange={e=>setMemForm(f=>({...f,desc:e.target.value}))} placeholder="思い出を自由に書いてください…"/></div>
+            <div className="fg">
+              <label>写真</label>
+              {memForm.photo ? <img src={memForm.photo} alt="" style={{width:'100%',height:160,objectFit:'cover',borderRadius:2,marginBottom:8}}/> : null}
+              <button className="btn btn-ghost" style={{fontSize:11,padding:'8px 16px'}} onClick={()=>memPhotoRef.current?.click()}>写真を選ぶ</button>
+              <input ref={memPhotoRef} type="file" accept="image/*" style={{display:'none'}} onChange={e=>{const f2=e.target.files?.[0];if(!f2)return;const r=new FileReader();r.onload=ev=>setMemForm(f=>({...f,photo:ev.target.result}));r.readAsDataURL(f2);e.target.value=''}}/>
+            </div>
+            <div className="btns">
+              {memForm.id && <button className="btn btn-danger" onClick={()=>{setData(d=>({...d,memories:d.memories.filter(m=>m.id!==memForm.id)}));setMemForm(null)}}>削除</button>}
+              <button className="btn btn-ghost" onClick={()=>setMemForm(null)}>キャンセル</button>
+              <button className="btn btn-solid" onClick={()=>{if(!memForm?.title)return;if(memForm.id)setData(d=>({...d,memories:d.memories.map(m=>m.id===memForm.id?memForm:m)}));else setData(d=>({...d,memories:[...(d.memories||[]),{...memForm,id:Date.now().toString()}]}));setMemForm(null)}}>保存</button>
+            </div>
+          </div>
+        </>)}
+
+        {/* 帹事 */}
+        {tab==='kanji' && !evForm && (<>
+          <div className="sec-label">法事の帹事 — {(data.events||[]).length} 件</div>
+          <div className="card">
+            {(data.events||[]).length===0 ? (
+              <div className="empty-state"><div className="empty-icon">📋</div><div className="empty-text">法事の案内・出欠管理ができます。<br/>参加者名をタップすると出欠が切り替わります（？→✓→✕）。</div></div>
+            ) : (data.events||[]).map(ev => {
+              const yes=(ev.attendees||[]).filter(a=>a.status==='yes').length;
+              const no=(ev.attendees||[]).filter(a=>a.status==='no').length;
+              return (
+                <div key={ev.id} style={{padding:'18px 0',borderBottom:'1px solid var(--border)'}}>
+                  <div style={{fontFamily:'var(--serif)',fontSize:16,color:'var(--ink)',marginBottom:6,cursor:'pointer'}} onClick={()=>setEvForm(ev)}>{ev.name}</div>
+                  <div style={{fontSize:12,color:'var(--ink3)',marginBottom:10}}>{ev.date&&<span>{ev.date}　</span>}{ev.place&&<span>{ev.place}</span>}</div>
+                  <div>
+                    {(ev.attendees||[]).map(a=>(
+                      <span key={a.name} style={{display:'inline-flex',alignItems:'center',gap:6,padding:'4px 10px',border:'1px solid var(--border)',borderRadius:100,fontSize:11,cursor:'pointer',margin:'3px 3px 0 0',...(a.status==='yes'?{background:'rgba(138,104,48,0.08)',borderColor:'var(--gold2)',color:'var(--gold)'}:a.status==='no'?{background:'rgba(160,60,60,0.06)',borderColor:'rgba(160,60,60,0.3)',color:'#a03c3c'}:{})}} onClick={()=>setData(d=>({...d,events:d.events.map(e=>{if(e.id!==ev.id)return e;const cur=(e.attendees||[]).find(a2=>a2.name===a.name);const nxt=cur?(cur.status==='?'?'yes':cur.status==='yes'?'no':'?'):'?';return{...e,attendees:[...(e.attendees||[]).filter(a2=>a2.name!==a.name),{name:a.name,status:nxt}]};})}))}>{a.status==='yes'?'✓':a.status==='no'?'✕':'？'} {a.name}</span>
+                    ))}
+                  </div>
+                  <div style={{fontSize:11,color:'var(--ink3)',marginTop:8}}>参加 {yes}名 / 不参加 {no}名 / 未回答 {(ev.attendees||[]).length-yes-no}名</div>
+                  <input style={{marginTop:10,flex:1,padding:'8px 12px',border:'1px solid var(--border)',borderRadius:2,fontSize:13,fontFamily:'var(--sans)',background:'var(--paper)',outline:'none',width:'100%'}} placeholder="参加者を追加 (Enterキー)" onKeyDown={e=>{if(e.key==='Enter'&&e.target.value.trim()){setData(d=>({...d,events:d.events.map(ev2=>ev2.id===ev.id?{...ev2,attendees:[...(ev2.attendees||[]),{name:e.target.value.trim(),status:'?'}]}:ev2)}));e.target.value=''}}}/>
+                </div>
+              );
+            })}
+          </div>
+          <div style={{textAlign:'right'}}><button className="btn btn-solid" onClick={()=>setEvForm({name:'',date:'',place:'',notes:''})}>＋ 法事を追加</button></div>
+        </>)}
+        {tab==='kanji' && evForm && (<>
+          <div className="sec-label">{evForm.id?'Edit Event':'New Event'}</div>
+          <div className="card">
+            <div className="fg"><label>法事名</label><input value={evForm.name||''} onChange={e=>setEvForm(f=>({...f,name:e.target.value}))} placeholder="四十九日法要"/></div>
+            <div className="row2">
+              <div className="fg"><label>日付</label><input type="date" value={evForm.date||''} onChange={e=>setEvForm(f=>({...f,date:e.target.value}))}/></div>
+              <div className="fg"><label>場所</label><input value={evForm.place||''} onChange={e=>setEvForm(f=>({...f,place:e.target.value}))} placeholder="○○寺"/></div>
+            </div>
+            <div className="fg"><label>メモ</label><textarea value={evForm.notes||''} onChange={e=>setEvForm(f=>({...f,notes:e.target.value}))} placeholder="持ち物・連絡事項など…"/></div>
+            <div className="btns">
+              {evForm.id && <button className="btn btn-danger" onClick={()=>{setData(d=>({...d,events:d.events.filter(e=>e.id!==evForm.id)}));setEvForm(null)}}>削除</button>}
+              <button className="btn btn-ghost" onClick={()=>setEvForm(null)}>キャンセル</button>
+              <button className="btn btn-solid" onClick={()=>{if(!evForm?.name)return;if(evForm.id)setData(d=>({...d,events:d.events.map(e=>e.id===evForm.id?evForm:e)}));else setData(d=>({...d,events:[...(d.events||[]),{...evForm,id:Date.now().toString(),attendees:[]}]}));setEvForm(null)}}>保存</button>
+            </div>
+          </div>
+        </>)}
+
+        {/* 家族 */}
+        {tab==='family' && (<>
+          <div className="sec-label">Family Group — {(data.family||[]).length} 人</div>
+          <div className="card">
+            <div style={{fontSize:13,color:'var(--ink3)',marginBottom:20,lineHeight:1.8}}>👨‍👩‍👧 家族を登録しておくと、お墓の引き継ぎや法事の連絡がスムーズになります。</div>
+            {(data.family||[]).map(f=>(
+              <div key={f.id} style={{display:'flex',alignItems:'center',gap:14,padding:'14px 0',borderBottom:'1px solid var(--border)'}}>
+                <div style={{width:40,height:40,borderRadius:'50%',background:'var(--paper2)',border:'1px solid var(--border)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:18,flexShrink:0}}>👤</div>
+                <div style={{flex:1}}>
+                  <div style={{fontFamily:'var(--serif)',fontSize:16,letterSpacing:'0.06em',color:'var(--ink)'}}>{f.name}</div>
+                  {f.role && <div style={{fontSize:11,color:'var(--ink3)',marginTop:2}}>{f.role}</div>}
+                </div>
+                <button className="btn btn-ghost" style={{fontSize:11,padding:'6px 12px'}} onClick={()=>setData(d=>({...d,family:d.family.filter(f2=>f2.id!==f.id)}))}>削除</button>
+              </div>
+            ))}
+            <div style={{marginTop:20,display:'flex',gap:10,flexWrap:'wrap'}}>
+              <input style={{flex:2,minWidth:120,padding:'11px 15px',border:'1px solid var(--border)',borderRadius:2,fontSize:14,fontFamily:'var(--sans)',background:'var(--paper)',outline:'none'}} placeholder="名前" value={famName} onChange={e=>setFamName(e.target.value)}/>
+              <input style={{flex:1,minWidth:80,padding:'11px 15px',border:'1px solid var(--border)',borderRadius:2,fontSize:14,fontFamily:'var(--sans)',background:'var(--paper)',outline:'none'}} placeholder="続柄" value={famRole} onChange={e=>setFamRole(e.target.value)}/>
+              <button className="btn btn-solid" onClick={()=>{if(!famName.trim())return;setData(d=>({...d,family:[...(d.family||[]),{id:Date.now().toString(),name:famName.trim(),role:famRole.trim()}]}));setFamName('');setFamRole('')}}>追加</button>
+            </div>
+          </div>
+        </>)}
+
+             {/* チェックリスト */}
         {tab==='checklist' && (<>
           <div className="sec-label">Funeral Checklist</div>
           <div className="progress-info"><span className="progress-title">進捗</span><span className="progress-count">{doneCount} / {allItems.length}</span></div>
