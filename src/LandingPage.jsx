@@ -58,8 +58,8 @@ export default function LandingPage({ onEnterApp }) {
       <section className="lp-story">
         <div className="lp-story-label">制作の背景</div>
         <div className="lp-story-text fade-up">
-          <p>父と一緒にお墓参りに行った日のことを、今でも鮮明に覚えています。霊園に着いたのに、<strong>父がお墓の場所を思い出せなかった。</strong></p>
-          <p>広い霊園をしばらく歩き回り、近くの酒屋さんに聞いてやっと辿り着いた。その時、ふと思ったんです。</p>
+          <p>父と一緒にお墓参りに行った日のことを、今でも鮮明に覚えています。墓地の近くにいるのに、<strong>高齢の父がお墓の場所を思い出せなかった。</strong></p>
+          <p>仕方なく近くのお店をいくつかまわって聞いて、やっと辿り着いた。その時、ふと思ったんです。</p>
         </div>
         <div className="lp-story-quote fade-up">
           もし父が一人で来ていたら。<br/>
