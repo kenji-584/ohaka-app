@@ -46,7 +46,7 @@ export default function LandingPage({ onEnterApp }) {
         <div className="lp-eyebrow">Ancestral Records &amp; Memorial Guide</div>
         <h1 className="lp-headline">
           「お父さん、うちのお墓<br/><em>どこだっけ？</em>」<br/>
-          そう聩かれる前に、今日登録しておく。
+          そう聴かれる前に、今日登録しておく。
         </h1>
         <p className="lp-sub">お墓の場所・写真・法事の日程・もしもの時の準備——<br/>大切な情報を家族で守るアプリ</p>
         <div className="lp-cta-wrap">
