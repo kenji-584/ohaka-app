@@ -67,6 +67,7 @@ const FREE_FEATURES = [
   { text: 'AIへの相談（月5回まで）', ok: false },
   { text: 'お墓の複数登録（無制限）', ok: false },
   { text: '法事スケジュール自動計算', ok: false },
+  { text: 'もしもノート（閲覧のみ）', ok: false },
   { text: '次世代への引き継ぎ機能', ok: false },
 ]
 
@@ -78,6 +79,8 @@ const PRO_FEATURES = [
   { text: 'AIへの相談（無制限）', ok: true },
   { text: '法事スケジュール自動計算', ok: true },
   { text: '次世代への引き継ぎ機能', ok: true },
+  { text: '📓 もしもノート（フル機能）', ok: true },
+  { text: '幹事・出欠管理ツール', ok: true },
   { text: '優先サポート', ok: true },
 ]
 
@@ -92,9 +95,9 @@ export default function PricingPage({ onBack }) {
   const [yearly, setYearly] = useState(false)
   const [openFaq, setOpenFaq] = useState(null)
 
-  const monthly = 480
-  const yearlyPrice = Math.floor(monthly * 12 * 0.8)
-  const displayPrice = yearly ? Math.floor(yearlyPrice / 12) : monthly
+  const familyMonthly = 1980
+  const familyYearly = Math.floor(familyMonthly * 12 * 0.8)
+  const familyDisplay = yearly ? Math.floor(familyYearly / 12) : familyMonthly
 
   const STRIPE_URL = 'https://buy.stripe.com/test_28E3cvc0N5016LY28oa3u00'
 
@@ -124,9 +127,9 @@ export default function PricingPage({ onBack }) {
             <div className="popular-badge">おすすめ</div>
             <div className="plan-name">プロプラン</div>
             <div className="plan-desc">すべての機能を使いたい方へ</div>
-            <div className="plan-price"><span className="price-num">¥{displayPrice.toLocaleString()}</span><span className="price-unit">/ 月</span><div className="price-annual">{yearly?`年間 ¥${yearlyPrice.toLocaleString()} でお支払い`:'年払いで 20% お得'}</div></div>
+            <div className="plan-price"><span className="price-num">¥{familyDisplay.toLocaleString()}</span><span className="price-unit">/ 月</span><div className="price-annual">{yearly?`年間 ¥${familyYearly.toLocaleString()} でお支払い`:'年払いで 20% お得'}</div></div>
             <ul className="features">{PRO_FEATURES.map((f,i)=><li key={i}><span className="check">✓</span><span>{f.text}</span></li>)}</ul>
-            <button className="plan-btn primary" onClick={()=>window.open(STRIPE_URL,'_blank')}>プロプランを始める</button>
+            <button className="plan-btn primary" onClick={()=>window.open(STRIPE_URL,'_blank')}>ファミリープランを始める（¥1,980/月）</button>
           </div>
         </div>
         <div className="trust-row">
