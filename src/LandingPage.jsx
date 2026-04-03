@@ -126,8 +126,7 @@ export default function LandingPage({ onEnterApp }) {
         <div style={{marginTop:16,fontSize:11,letterSpacing:'0.08em'}}>
           <a href="/legal.html" style={{color:'var(--ink3)',textDecoration:'none'}}>特定商取引法に基づく表記</a>
         </div>
-      <div style={{marginTop:16,fontSize:11,letterSpacing:'0.08em'}}>
-  <a href="/legal.html" style={{color:'var(--ink3)',textDecoration:'none'}}>特定商取引法に基づく表記</a>
-</div><div style={{marginTop:16,fontSize:11,letterSpacing:'0.08em'}}><a href="/legal.html" style={{color:'var(--ink3)',textDecoration:'none'}}>特定商取引法に基づく表記</a></div></footer>
+      </footer>
+    </>
   )
 }
