@@ -123,7 +123,9 @@ export default function LandingPage({ onEnterApp }) {
       <footer style={{padding:'36px 24px',textAlign:'center',borderTop:'1px solid var(--border)',background:'var(--paper2)'}}>
         <div style={{fontFamily:'var(--serif)',fontSize:15,letterSpacing:'0.2em',color:'var(--ink)',marginBottom:10}}>家のお墓帳</div>
         <div style={{fontSize:11,color:'var(--ink4)',letterSpacing:'0.1em'}}>Ancestral Records &amp; Memorial Guide</div>
+        <div style={{marginTop:16,fontSize:11,letterSpacing:'0.08em'}}>
+          <a href="/legal.html" style={{color:'var(--ink3)',textDecoration:'none'}}>特定商取引法に基づく表記</a>
+        </div>
       </footer>
-    </>
   )
 }
